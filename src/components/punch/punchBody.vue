@@ -1,7 +1,8 @@
 <template>
   <div class="punch-body">
+    <div class="punch-week-name" :data-week-code="weekCode">{{ weekName }}</div>
     <div class="punch-today">
-      <div class="punch-item punch-star" @click="punchStar($event)">
+      <div class="punch-item punch-star" @click="punchStar()">
         <img
           :src="starOutline"
           alt="star_outline"
@@ -24,7 +25,7 @@
           </p>
           <span class="time-description">{{ lunchDes }}</span>
         </div>
-        <div class="punch-item punch-dinner">
+        <div class="punch-item punch-dinner" :class="shakeDinner ? 'shake': '' ">
           <p>
             {{ dinnerTitle }} 
             <span class="get-star-item" v-show="getDinnerStar">
@@ -39,11 +40,8 @@
     </div>
 
     <popUp
-      ref="popUpBox"
-      :showPopUp="showPopUp"
-      :popupTitle="popupTitle"
-      :popupYesBtn="popupYesBtn"
-      :popupNoBtn="popupNoBtn"
+      ref="popupBox"
+      :popupTitle='popupTitle'
     ></popUp>
   </div>
 </template>
@@ -58,6 +56,10 @@ export default {
     Icon,
     popUp
   },
+  props: {
+    weekName: String,
+    weekCode: Number
+  },
   data() {
     return {
       plus: "+",
@@ -71,53 +73,66 @@ export default {
       showOutlineStar: true,
       starFill: require("@/assets/icon/star_fill.svg"),
       showfillStar: false,
-      popupTitle: "要在规定时间内打卡哦~",
-      popupYesBtn: "确定",
-      popupNoBtn: "取消",
-      showPopUp: false,
+      popupTitle: '',
       getLunchStar: false,
-      getDinnnerStar: false
+      getDinnerStar: false,
+      shakeDinner: false
     };
   },
   methods: {
-    punchStar(e) {
-      var nowTime = new Date();
-      console.log(nowTime.getHours());
-      if (nowTime.getHours() >= 12 && nowTime.getHours() < 14) {
-        // Lunch time must between 12:00 - 14:00
-        if (!this.getLunchStar) {
-          this.showOutlineStar = false;
-          this.showfillStar = true;
-          this.showPlusIcon = false;
-          this.getLunchStar = true;
+    punchStar() {
+      var date = new Date();
+      var today = date.getDay();
+      var nowHour = date.getHours();
+      if (today == this.weekCode) {
+        if (nowHour >= 12 && nowHour < 14) {
+          // Lunch time must between 12:00 - 14:00
+          if (!this.getLunchStar) {
+            this.showOutlineStar = false;
+            this.showfillStar = true;
+            this.showPlusIcon = false;
+            this.getLunchStar = true;
+          } else {
+            this.popupTitle = '午餐星星已经领取过啦，不可以贪心哦~';
+            this.$refs.popupBox.showPopupBox();
+          }
+        } else if (nowHour >= 16 && nowHour < 19) {
+          // Dinner time must between 16:00 - 19:00
+          if (!this.getDinnerStar) {
+            this.showOutlineStar = false;
+            this.showfillStar = true;
+            this.showPlusIcon = false;
+            this.getDinnerStar = true;
+            this.shakeDinner = true;
+          } else {
+            this.popupTitle = '晚餐星星已经已经领取过啦，不可以贪心哦~';
+            this.$refs.popupBox.showPopupBox();
+          }
         } else {
-          this.popupTitle = '已经领取过啦，不可以贪心哦~'
-          this.$refs.popUpBox.showPopUp = true;
-        }
-      } else if (nowTime.getHours() >= 16 && nowTime.getHours() < 19) {
-        // Dinner time must between 16:00 - 19:00
-        if (!this.getDinnerStar) {
-          this.showOutlineStar = false;
-          this.showfillStar = true;
-          this.showPlusIcon = false;
-          this.getDinnerStar = true;
-        } else {
-          this.popupTitle = '已经领取过啦，不可以贪心哦~'
-          this.$refs.popUpBox.showPopUp = true;
+          this.popupTitle = '要在规定时间内领取哦~';
+          this.$refs.popupBox.showPopupBox();
         }
       } else {
-        this.$refs.popUpBox.showPopUp = true;
+        this.popupTitle = '只能领取当天的星星哦~';
+        this.$refs.popupBox.showPopupBox();
       }
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>
 .punch-body {
   color: black;
-  width: 100%;
-  padding: 1rem 1rem 0;
+  padding: 1.5rem 0 2rem;
+  margin: 0 1rem;
+  border-radius: 0 !important;
+  border-bottom: 1px solid gray;
+
+  .punch-week-name {
+    font-size: 1.5rem;
+    padding-bottom: .5rem;
+  }
 
   .punch-today {
     display: flex;
@@ -197,6 +212,10 @@ export default {
           bottom: 0;
           right: 0;
         }
+
+        &.shake {
+          animation: shake .5s ease-in-out;
+        }
       }
 
       .punch-dinner {
@@ -214,6 +233,10 @@ export default {
           bottom: 0;
           right: 0;
         }
+
+        &.shake {
+          animation: shake .5s ease-in-out;
+        }
       }
 
       p {
@@ -221,6 +244,14 @@ export default {
         font-weight: bold;
       }
     }
+  }
+
+  @keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(+2px, 0, 0); }
+    30%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(+4px, 0, 0); }
+    50% { transform: translate3d(-4px, 0, 0); }
   }
 }
 </style>

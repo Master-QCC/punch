@@ -1,11 +1,11 @@
 <template>
   <div class="pop-up" v-show="showPopUp">
     <div class="popup-box redirection-black-background">
-      <div class="popup-container">
+      <div class="popup-container" :class="showPopupClass ? 'show-popup' : '' ">
         <h2 class="popup-title popup-margin" tabindex="-1">{{ popupTitle }}</h2>
         <div class="popup-footer">
-        <button class="popup-btn popup-continue" @click="closePopUp($event)">{{ popupYesBtn }}</button>
-        <button class="popup-btn popup-cancel" @click="closePopUp($event)">{{ popupNoBtn }}</button>
+        <button class="popup-btn popup-continue" @click="closePopUp()">{{ popupYesBtn }}</button>
+        <button class="popup-btn popup-cancel" @click="closePopUp()">{{ popupNoBtn }}</button>
         </div>
       </div>
     </div>
@@ -17,20 +17,25 @@
 export default {
   name: "pop-up",
   props: {
-    popupTitle: String,
-    showPopUp: Boolean,
-    popupYesBtn: String,
-    popupNoBtn: String
+    popupTitle: String
   },
   data() {
     return {
-      
+      popupYesBtn: "确定",
+      popupNoBtn: "取消",
+      showPopUp: false,
+      showPopupClass: false
     };
   },
   methods: {
-    closePopUp(e) {
+    closePopUp() {
       this.showPopUp = false;
-    }
+      this.showPopupClass = false;
+    },
+    showPopupBox() {
+      this.showPopUp = true;
+      this.showPopupClass = true;
+    },
   }
 };
 </script>
@@ -47,16 +52,21 @@ export default {
   z-index: 10;
   justify-content: center;
   overflow-x: hidden;
+  border-radius: 0;
 
   .popup-container {
     background-color: #fff;
     padding: 1rem;
     max-width: 614px;
     position: relative;
-    top: -20px;
-    transition: all 0.4s;
+    top: -30px;
+    transition: all 0.4s ease-out;
     min-width: 350px;
     padding: 1rem;
+
+    &.show-popup {
+      top: 0;
+    }
 
     .popup-margin {
       margin-bottom: 1rem;
@@ -86,7 +96,7 @@ export default {
       }
 
       .popup-continue {
-        background: rgba(119, 249, 197, 0.7);
+        background: rgba(119, 249, 197, 0.8);
       }
     }
 

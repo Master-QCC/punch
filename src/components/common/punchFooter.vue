@@ -1,5 +1,5 @@
 <template>
-  <div class="punch-footer">
+  <div class="punch-footer" :class="smallFooterClass ? 'smaller' : '' ">
     <ul>
       <li
         v-for="site in sites"
@@ -22,6 +22,9 @@ export default {
   name: "punch-footer",
   components: {
     Icon
+  },
+  props: {
+    smallFooterClass: Boolean
   },
   data() {
     return {
@@ -49,9 +52,25 @@ export default {
   bottom: 0;
   width: 100%;
   overflow: hidden;
+  transition: all .4s ease-out;
   box-shadow: 0 2px 8px 2px rgba(0,0,0,0.2);
-  background: rgba(230, 255, 245, 0.8);
+  background: rgba(230, 255, 245, 0.9);
   z-index: 9;
+
+  &.smaller {
+    width: 50%;
+    background: rgba(119, 249, 197, 0.9);
+
+    li {
+      padding-top: .5rem;
+      padding-bottom: .5rem;
+      p {
+        height: 0;
+        overflow: hidden;
+      }
+    }
+  }
+
   ul {
     display: flex;
     justify-content: space-between;
