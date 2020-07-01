@@ -21,16 +21,9 @@ let ApiConf = {
 };
 
 let WebsiteConf = {
-	webname : '大屏展示',
+	webname : 'Demo展示',
 	weburl : 'http://localhost:8080/',
-  copyright : 'Copyright © 2018'
-};
-
-let BaseConf = {
-  flashStep : 0,
-  swiperStep : 5000,
-  //开启地图里面的门店坐标点
-  openMapShop : true
+  copyright : 'Copyright © 2020'
 };
 
 //开发环境
@@ -51,7 +44,5 @@ if(process.env.NODE_ENV === 'testing'){
 export {
   RouterConf,
   ApiConf,
-  ImgConf,
-  WebsiteConf,
-  BaseConf
+  WebsiteConf
 }

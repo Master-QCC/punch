@@ -3,7 +3,12 @@
     <div class="punch-header-box">
       <punchHeader :punchHeader='punchTitle' :smallHeaderClass='smallHeaderClass'></punchHeader>
     </div>
-    <punchBody :weekName='weekitem.name' :weekCode='weekitem.id' v-for="weekitem in weekLists" :key="weekitem.id"></punchBody>
+    <punchWeek 
+    :weekName='weekitem.name' 
+    :weekCode='weekitem.id' 
+    :noBorder='weekitem.id === weekLists.length'
+    v-for="weekitem in weekLists" 
+    :key="weekitem.id"></punchWeek>
     <div class="punch-footer-box">
       <punchFooter :smallFooterClass='smallFooterClass'></punchFooter>
     </div>
@@ -12,7 +17,7 @@
 
 <script>
 import punchHeader from '@/components/common/punchHeader'
-import punchBody from '@/components/punch/punchBody'
+import punchWeek from '@/components/punch/punchWeek'
 import punchFooter from '@/components/common/punchFooter'
 import weekLists from '@/mockData/weekList.js'
 
@@ -20,7 +25,7 @@ import weekLists from '@/mockData/weekList.js'
     name: 'punch-week-record',
     components: {
         punchHeader,
-        punchBody,
+        punchWeek,
         punchFooter
     },
     data () {
@@ -28,20 +33,16 @@ import weekLists from '@/mockData/weekList.js'
         punchTitle: '本周星星',
         smallHeaderClass: false,
         smallFooterClass: false,
-        weekLists: weekLists
+        weekLists: weekLists,
+        scrollTop: 0
       }
     },
     mounted () {
-      window.addEventListener('scroll',this.handleScroll);
+      window.addEventListener('scroll', this.handleScroll, true);
 
     },
     methods: {
-      handleScroll() {
-        var scrollTop = document.documentElement.scrollTop;
-        var clientHeight = document.documentElement.clientHeight;
-        var scrollHeight = document.documentElement.scrollHeight;
-        var onBottom = Math.ceil(scrollTop + clientHeight) == scrollHeight;
-
+      checkTopOrBottom(scrollTop, onBottom) {
         if (scrollTop > 0 && !onBottom) {
           this.smallHeaderClass = true;
           this.smallFooterClass = true;
@@ -49,6 +50,13 @@ import weekLists from '@/mockData/weekList.js'
           this.smallHeaderClass = false;
           this.smallFooterClass = false;
         }
+      },
+      handleScroll() {
+        this.scrollTop = document.documentElement.scrollTop;
+        let clientHeight = document.documentElement.clientHeight;
+        let scrollHeight = document.documentElement.scrollHeight;
+        let onBottom = Math.ceil(this.scrollTop + clientHeight) == scrollHeight;
+        this.checkTopOrBottom(this.scrollTop, onBottom);
       }
     }
   }
