@@ -98,7 +98,7 @@ import monthLists from '@/mockData/monthList.js'
       display: flex;
       justify-content: flex-start;
       width: 100%;
-      height: 30px;
+      height: 50px;
     }
 
     .punch-month-box {

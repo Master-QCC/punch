@@ -69,7 +69,7 @@ import weekLists from '@/mockData/weekList.js'
       display: flex;
       justify-content: flex-start;
       width: 100%;
-      height: 30px;
+      height: 50px;
     }
 
     .punch-footer-box {

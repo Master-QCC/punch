@@ -60,6 +60,7 @@ export default {
   &.smaller {
     width: 50%;
     background: rgba(119, 249, 197, 0.9);
+    margin-bottom: 1rem;
 
     li {
       padding-top: .5rem;

@@ -38,6 +38,7 @@
       width: 25%;
       padding: .5rem;
       background: rgba(119, 249, 197, 0.9);
+      margin-top: 1rem;
     }
   }
 </style>

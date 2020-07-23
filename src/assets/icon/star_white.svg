@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="29px" viewBox="0 0 30 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 64 (101010) - https://sketch.com -->
+    <title>9B6AA95B-C81B-46D9-8AD7-AB18557AA6BF</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <polygon id="path-1" points="15 0 19.6381174 9.54636357 30 11.0776203 22.5010261 18.5085965 24.2721303 29 15 24.0453205 5.72992201 29 7.50102613 18.5085965 0 11.0776203 10.3639349 9.54636357"></polygon>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Feedback_Flow" transform="translate(-1246.000000, -854.000000)">
+            <g id="feedback-step3" transform="translate(1222.000000, 700.000000)">
+                <g id="Rating" transform="translate(24.000000, 154.000000)">
+                    <g id="icon/star_fill">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <use fill="#FFFFFF" fill-rule="nonzero" xlink:href="#path-1"></use>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

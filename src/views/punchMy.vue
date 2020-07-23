@@ -22,7 +22,7 @@ import punchFooter from '@/components/common/punchFooter'
     },
     data () {
       return {
-        punchTitle: '历史星星',
+        punchTitle: '个人信息',
         smallHeaderClass: false,
         smallFooterClass: false
       }
@@ -41,7 +41,7 @@ import punchFooter from '@/components/common/punchFooter'
         if (scrollTop > 0 && !onBottom) {
           this.smallHeaderClass = true;
           this.smallFooterClass = true;
-        }else {
+        } else {
           this.smallHeaderClass = false;
           this.smallFooterClass = false;
         }
@@ -57,7 +57,7 @@ import punchFooter from '@/components/common/punchFooter'
       display: flex;
       justify-content: flex-start;
       width: 100%;
-      height: 30px;
+      height: 50px;
     }
 
     .punch-footer-box {

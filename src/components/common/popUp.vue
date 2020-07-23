@@ -4,8 +4,7 @@
       <div class="popup-container" :class="showPopupClass ? 'show-popup' : '' ">
         <h2 class="popup-title popup-margin" tabindex="-1">{{ popupTitle }}</h2>
         <div class="popup-footer">
-        <button class="popup-btn popup-continue" @click="closePopUp()">{{ popupYesBtn }}</button>
-        <button class="popup-btn popup-cancel" @click="closePopUp()">{{ popupNoBtn }}</button>
+        <button class="popup-btn popup-continue" @click="closePopUp">{{ popupYesBtn }}</button>
         </div>
       </div>
     </div>
@@ -21,18 +20,17 @@ export default {
   },
   data() {
     return {
-      popupYesBtn: "确定",
-      popupNoBtn: "取消",
+      popupYesBtn: "知道了",
       showPopUp: false,
       showPopupClass: false
     };
   },
   methods: {
-    closePopUp() {
+    closePopUp: function () {
       this.showPopUp = false;
       this.showPopupClass = false;
     },
-    showPopupBox() {
+    showPopupBox: function () {
       this.showPopUp = true;
       this.showPopupClass = true;
     },
@@ -61,7 +59,7 @@ export default {
     position: relative;
     top: -30px;
     transition: all 0.4s ease-out;
-    min-width: 350px;
+    min-width: 320px;
     padding: 1rem;
 
     &.show-popup {
@@ -109,6 +107,7 @@ export default {
     background-color: #000;
     background-color: rgba(0, 0, 0, 0.5);
     padding: 0 1rem;
+    border-radius: 0 !important;
   }
 
 }
