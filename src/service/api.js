@@ -1,7 +1,6 @@
 import axios from 'axios' // 处理http请求
 import {ApiConf} from '../config'
 import storage from '../util/storage'
-import API from './api_config'
 
 axios.defaults.baseURL = ApiConf.base + ApiConf.url;
 axios.defaults.timeout = ApiConf.timeout;
